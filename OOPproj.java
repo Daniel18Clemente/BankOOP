@@ -12,11 +12,11 @@ public class OOPproj {
         String[] userNames = new String[MAX_USERS];
         String[] passWords = new String[MAX_USERS];
         int[] balances = new int[MAX_USERS];
-        String[] Transactions = new String[MAX_USERS]; 
-        String[] typeOfCurrency = new String[]{"[1]Pound sterling", "[2]Swiss Franc",
-            "[3]Canadian Dollar", "[4]United States Dollar", "[5]Kuwaiti Dinar", "[6]Omani Rial",
-            "[7]Euro", "[8]Japanese Yen"};
-        double[] exchangeRates = new double[]{68.89, 62.23, 40.63, 56.14, 181.79, 145.87, 60.07, 0.37};
+        String[] Transactions = new String[MAX_USERS];
+        String[] typeOfCurrency = new String[] { "[1]Pound sterling", "[2]Swiss Franc",
+                "[3]Canadian Dollar", "[4]United States Dollar", "[5]Kuwaiti Dinar", "[6]Omani Rial",
+                "[7]Euro", "[8]Japanese Yen" };
+        double[] exchangeRates = new double[] { 68.89, 62.23, 40.63, 56.14, 181.79, 145.87, 60.07, 0.37 };
         double convertedAmount;
 
         int accountCount = 0;
@@ -90,20 +90,44 @@ public class OOPproj {
 
                         switch (choice) {
                             case "1":
+                                System.out.println("\n------------------------");
+                                System.out.println("DEPOSIT");
+                                System.out.println("\nMinimum amount: 100");
+                                System.out.println("Maximum amount: 50,000");
+                                System.out.println("\n------------------------");
                                 System.out.print("Enter the amount to deposit:    ");
                                 amount = Integer.parseInt(input.readLine());
-                                balances[index] += amount;
-                                System.out.println("Deposit successful. New balance: " + balances[index]);
+                                if ((amount >= 100) && (amount <= 50000)) {
+                                    balances[index] += amount;
+                                    System.out.println("Successfully Deposited the " + amount);
+                                    System.out.println("Current Balance: " + balances[index]);
+
+                                } else if (amount <= 0) {
+                                    System.out.println("zero/negative number/s are not accepted!");
+
+                                } else {
+                                    System.out.println("sorry the amount you can deposit is 100 to 50,000 only");
+                                    System.out.println("\n------------------------");
+                                }
                                 break;
 
                             case "2":
-                                System.out.println("Enter the amount to withdraw: ");
+                                System.out.println("\n------------------------");
+                                System.out.println("WITHDRAWAL");
+                                System.out.println("\nYour Balance: " + balances[index]);
+                                System.out.print("Enter the amount to withdraw: ");
                                 amount = Integer.parseInt(input.readLine());
+
                                 if (amount > balances[index]) {
-                                    System.out.println("Insufficient balance");
+                                    System.out.println("Insufficient Balance");
+
+                                } else if (amount <= 0) {
+                                    System.out.println("zero/negative number/s are not accepted!");
+
                                 } else {
                                     balances[index] -= amount;
-                                    System.out.println("Withdrawal successful. New balance: " + balances[index]);
+                                    System.out.println("Successfully withdraw the " + amount);
+                                    System.out.println("Remaining Balance: " + balances[index]);
                                 }
                                 break;
 
@@ -128,16 +152,18 @@ public class OOPproj {
                                 int chosenCurrencyIndex = Integer.parseInt(choice) - 1;
 
                                 if (chosenCurrencyIndex >= 0 && chosenCurrencyIndex < typeOfCurrency.length) {
-                                    System.out.print("Enter the amount of " + typeOfCurrency[chosenCurrencyIndex] + "to convert into peso/s : ");
+                                    System.out.print("Enter the amount of " + typeOfCurrency[chosenCurrencyIndex]
+                                            + "to convert into peso/s : ");
                                     double Conv_amount = Double.parseDouble(input.readLine());
 
                                     for (int x = 0; x < typeOfCurrency.length; x++) {
                                         convertedAmount = Conv_amount * exchangeRates[chosenCurrencyIndex];
-                                        System.out.println(typeOfCurrency[chosenCurrencyIndex] + ": " + convertedAmount + "Peso/s");
+                                        System.out.println(typeOfCurrency[chosenCurrencyIndex] + ": " + convertedAmount
+                                                + "Peso/s");
                                         break;
                                     }
-                                    Transactions[index]=typeOfCurrency[chosenCurrencyIndex];
-                                    
+                                    Transactions[index] = typeOfCurrency[chosenCurrencyIndex];
+
                                 } else {
                                     System.out.println("Invalid choice. Please choose a valid currency.");
                                 }
@@ -162,5 +188,3 @@ public class OOPproj {
         }
     }
 }
-   
-
